@@ -226,7 +226,13 @@ body{
 
 var currentUser = "<%= user %>";
 var chattingWith = "<%= to %>";
-var socket = new WebSocket("ws://localhost:8081/TwoWayChatApp/chat?user=<%= user %>");
+
+var socket = new WebSocket(
+	    (location.protocol === "https:" ? "wss://" : "ws://") +
+	    location.host +
+	    "/chat?user=" + currentUser
+	);
+
 
 socket.onopen = function(){
     socket.send("CHECK_STATUS:" + chattingWith);
